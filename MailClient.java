@@ -56,4 +56,15 @@ public class MailClient
         MailItem item = new MailItem(user, to, message, subject);
         server.post(item);
     }
+    
+    public void devolverCantidadDeEmails()
+    {
+        System.out.println("Emails pendientes " + 
+		                   server.howManyMailItems(user));
+    }
+    
+    
+    
+    
+    
 }
