@@ -12,7 +12,10 @@ public class MailClient
     private MailServer server;
     // The user running this client.
     private String user;
-
+    
+    private boolean automaticAnswer;
+    private String mensajeRespuestaAutomatica;
+    private String asuntoRespuestaAutomatica;
     /**
      * Create a mail client run by user and attached to the given server.
      */
@@ -20,6 +23,7 @@ public class MailClient
     {
         this.server = server;
         this.user = user;
+        mensajeRespuestaAutomatica = "Estoy de vacaciones";
     }
 
     /**
@@ -27,8 +31,18 @@ public class MailClient
      */
     public MailItem getNextMailItem()
     {
-        return server.getNextMailItem(user);
+		MailItem item = server.getNextMailItem(user);
+		if (item != null){
+            
+		    if (automaticAnswer == true){
+		        System.out.println(mensajeRespuestaAutomatica + asuntoRespuestaAutomatica);
+            }
+        }
+        return item;
+            
+        
     }
+    
 
     /**
      * Print the next mail item (if any) for this user to the text 
@@ -60,10 +74,15 @@ public class MailClient
     public void devolverCantidadDeEmails()
     {
         System.out.println("Emails pendientes " + 
-		                   server.howManyMailItems(user));
+                           server.howManyMailItems(user));
     }
     
-    
+    public void habilitarAutoRespuesta(boolean autoRespuesta, String mensajeRespuestaAutomatica1,String asuntoRespuestaAutomatica1)
+    {
+        automaticAnswer = autoRespuesta;
+        mensajeRespuestaAutomatica = mensajeRespuestaAutomatica1;
+        asuntoRespuestaAutomatica = asuntoRespuestaAutomatica1;
+    }
     
     
     
